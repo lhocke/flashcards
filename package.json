@@ -1,0 +1,25 @@
+{
+  "name": "flashcards",
+  "version": "1.0.0",
+  "description": "A study flashcard app",
+  "main": "cloze-basic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lhocke/flashcards.git"
+  },
+  "keywords": [
+    "flashcards"
+  ],
+  "author": "Dylan Ishihara",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lhocke/flashcards/issues"
+  },
+  "homepage": "https://github.com/lhocke/flashcards#readme",
+  "dependencies": {
+    "inquirer": "^3.2.0"
+  }
+}
