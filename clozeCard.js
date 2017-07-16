@@ -1,4 +1,4 @@
-var BasicCard = require("./basicCard.js")
+var BasicCard = require("./basicCard.js");
 
 var ClozeCard = function (text, cloze){
 	if (text.includes(cloze)){
@@ -10,7 +10,7 @@ var ClozeCard = function (text, cloze){
 	} else {
 		console.log("Sorry, your answer is not in the question")
 	}
-}
+};
 
 var teslaCloze = new ClozeCard("Nikolai Tesla discovered and was the first to implement Direct Current", "Nikolai Tesla");
 console.log(teslaCloze.card.front + "\n" + teslaCloze.card.back);
