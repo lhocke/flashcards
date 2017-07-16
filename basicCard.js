@@ -3,8 +3,12 @@ var fs = require('fs');
 // var basicQuestions = [];
 
 var BasicCard = function(front,back){
-    this.front = front;
-    this.back = back;
+	if(this instanceof BasicCard) {
+		this.front = front;
+		this.back = back;
+	} else {
+		return new BasicCard(front, back);
+	}
 }
 
 // fs.appendFile("basic-cards.json", JSON.stringify(this),function(err){
@@ -13,8 +17,9 @@ var BasicCard = function(front,back){
 // 	}
 // })
 
-var testQ = new BasicCard("this", "thing");
-var newQ = new BasicCard("new", "thing")
-
+// var testQ = new BasicCard("this", "thing");
+// console.log(testQ)
+// var newQ = BasicCard("new", "thing")
+// console.log(newQ)
 
 module.exports = BasicCard;
