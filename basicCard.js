@@ -1,7 +1,6 @@
-var BasicCard = function(text,cloze){
-    this.cloze = cloze;
-    this.fullText = fullText;
-    this.partial = partial
+var BasicCard = function(front,back){
+    this.front = front;
+    this.back = back;
 }
 
 module.exports = BasicCard;
