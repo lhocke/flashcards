@@ -16,9 +16,4 @@ var ClozeCard = function(text, cloze){
 	};
 };
 
-// var teslaCloze = ClozeCard("Nikolai Tesla discovered and was the first to implement Direct Current", "Nikolai Tesla");
-// console.log(teslaCloze.card.front + "\n" + teslaCloze.card.back);
-// var testCloze = ClozeCard("A dog", "A cat");
-
-
 module.exports = ClozeCard;
