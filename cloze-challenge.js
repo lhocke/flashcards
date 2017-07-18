@@ -1,10 +1,8 @@
 var ClozeCard = require('./clozeCard.js');
 var BasicCard = require('./basicCard.js');
 var inquirer = require('inquirer');
-var fs = require('fs')
-
-var clozeData = [];
-var basicData =[];
+var fs = require('fs');
+var score = 0;
 
 // check user intent
 var startUp = function() {
@@ -13,7 +11,7 @@ var startUp = function() {
 			name: "functionCheck",
 			type: "list",
 			message: "What would you like to do?",
-			choices: ["Create Cards", "Test Myself"]
+			choices: ["Test Myself", "Create Cards"]
 		}
 	]).then(function(userChoice) {
 		console.log(userChoice)
@@ -52,41 +50,109 @@ var gameStart = function() {
 		]).then(function(response){
 			if(response.testType === "Basic") {
 				console.log("Basic Test Begins!");
-				basicTest();
+				basicTest(0);
 			} else {
 				console.log("Cloze Test Begins!");
-				clozeTest();
+				clozeTest(0);
 			};
 		});
 };
 
-var basicTest = function() {
-	var score = 0;
+var basicTest = function(index) {
+	if (!index){
+		index = 0
+	}
 	fs.readFile("./basic.json", "utf-8", function(err, data){
 		var questions = JSON.parse(data);
-		for (var i = 0; i < questions.length; i++) {
-			inquirer.prompt([
-				{
-					name: "question",
-					message: questions[i].front,
-					type: "input"
-				}
-			])then.(function(check){
-				console.log(check)
-				if (check.question === questions[i].back) {
-					console.log("Congratulations!");
-					score++;
-					console.log(score);
-				} else {
-					console.log("Sorry, the answer was: " + questions[i].back);
-					console.log(score);
-				};
-			});
-		};
+		console.log(questions)
+		var card = questions[index]
+		inquirer.prompt([
+			{
+				name: "question",
+				message: index + ". " + card.front + "\n",
+				type: "input"
+			}
+		]).then(function(check){
+			console.log(check)
+			if (check.question === card.back) {
+				console.log("Congratulations!");
+				score++;
+				console.log("Score: " + score);
+			} else {
+				console.log("Sorry, the answer was: " + card.back);
+				console.log("Score: " + score);
+			};
+			if (index < questions.length - 1) {
+				basicTest(index + 1)
+			} else {
+				console.log("Game Over! Thanks For Playing!")
+				inquirer.prompt([
+					{
+						name: "doWhat",
+						type: "list",
+						message: "Would you like to try again?",
+						choices: ["Yes", "No"]
+					}
+				]).then(function(next){
+					if (next.doWhat === "Yes") {
+						basicTest(0)
+					} else {
+						startUp()
+					}
+				})
+			}
+		});
 	});
 };
 
-var clozeTest = function() {};
+var clozeTest = function(index) {
+	if (!index){
+		index = 0
+	}
+	
+	fs.readFile("./cloze.json", "utf-8", function(err, data){
+		var questions = JSON.parse(data);
+		console.log(questions)
+		var card = questions[index]
+		inquirer.prompt([
+			{
+				name: "question",
+				message: index + 1 + ". " + card.front + "\n",
+				type: "input"
+			}
+		]).then(function(check){
+			console.log(check)
+			if (check.question === card.back) {
+				console.log("Congratulations!");
+				score++;
+				console.log("Score: " + score);
+			} else {
+				console.log("Sorry, the answer was: " + card.back);
+				console.log("Score: " + score);
+			};
+			if (index < questions.length - 1) {
+				basicTest(index + 1)
+			} else {
+				console.log("Game Over! Thanks For Playing!");
+				inquirer.prompt([
+					{
+						name: "doWhat",
+						type: "list",
+						message: "Would you like to try again?",
+						choices: ["Yes", "No"]
+					}
+
+				]).then(function(next){
+					if (next.doWhat === "Yes") {
+						clozeTest(0)
+					} else {
+						startUp()
+					}
+				})
+			}
+		});
+	})
+};
 
 // create Basic Cards
 var basicCardCreate = function() {
@@ -124,8 +190,24 @@ var basicCardCreate = function() {
 			fs.writeFile("./basic.json", JSON.stringify(json, null, 2), function(err){
 				if (err) throw err
 			});
-		});
+		})
+		// ask for next step
+		inquirer.prompt([
+			{
+				name: "doWhat",
+				type: "list",
+				message: "Would you like to make another?",
+				choices: ["Yes", "No"]
+			}
+		]).then(function(next){
+			if (next.doWhat === "Yes") {
+				basicCardCreate()
+			} else {
+				startUp()
+			}
+		})
 	});
+
 };
 
 // create cloze cards
@@ -164,7 +246,22 @@ var clozeCardCreate = function() {
 				if (err) throw err
 			});
 		});
+		inquirer.prompt([
+			{
+				name: "doWhat",
+				type: "list",
+				message: "Would you like to make another?",
+				choices: ["Yes", "No"]
+			}
+		]).then(function(next){
+			if (next.doWhat === "Yes") {
+				clozeCardCreate()
+			} else {
+				startUp()
+			}
+		})
 	});
+	
 };
 
 startUp()
