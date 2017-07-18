@@ -6,6 +6,7 @@ var score = 0;
 
 // check user intent
 var startUp = function() {
+	console.log('\033c');
 	score = 0;
 	inquirer.prompt([
 		{
@@ -31,10 +32,10 @@ var startUp = function() {
 				}
 			})
 		} else if (userChoice.functionCheck === "Test Myself") {
-			gameStart()
+			gameStart();
 		} else {
-			process.exit()
-		}
+			process.exit();
+		};
 	})
 };
 
@@ -74,7 +75,7 @@ var basicTest = function(index) {
 		inquirer.prompt([
 			{
 				name: "question",
-				message: index + ". " + card.front + "\n",
+				message: 1 + index + ". " + card.front + "\n",
 				type: "input"
 			}
 		]).then(function(check){
@@ -84,7 +85,7 @@ var basicTest = function(index) {
 				score++;
 				console.log("Score: " + score);
 			} else {
-				console.log("Score: " + score);
+				console.log("Sorry!\nScore: " + score);
 			};
 			if (index < questions.length - 1) {
 				basicTest(index + 1)
@@ -133,8 +134,7 @@ var clozeTest = function(index) {
 				score++;
 				console.log("Score: " + score);
 			} else {
-				console.log("Sorry, the answer was: " + card.back);
-				console.log("Score: " + score);
+				console.log("Sorry\nScore: " + score);
 			};
 			if (index < questions.length - 1) {
 				clozeTest(index + 1)
