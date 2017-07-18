@@ -6,6 +6,7 @@ var score = 0;
 
 // check user intent
 var startUp = function() {
+	score = 0;
 	inquirer.prompt([
 		{
 			name: "functionCheck",
@@ -136,7 +137,7 @@ var clozeTest = function(index) {
 				console.log("Score: " + score);
 			};
 			if (index < questions.length - 1) {
-				basicTest(index + 1)
+				clozeTest(index + 1)
 			} else {
 				console.log("Game Over! Thanks For Playing!");
 				inquirer.prompt([
