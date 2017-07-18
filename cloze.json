@@ -12,7 +12,11 @@
     "back": "Jupiter"
   },
   {
-  	"front": "... is a test that seems to measure a person's inherent biases or viewpoints based on fill in the blank answers",
-  	"back": "Cloze"
+    "front": "... is a test that seems to measure a person's inherent biases or viewpoints based on fill in the blank answers",
+    "back": "Cloze"
+  },
+  {
+    "front": "... is our instructor",
+    "back": "Jerome"
   }
 ]

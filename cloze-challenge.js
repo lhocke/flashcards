@@ -76,7 +76,15 @@ var basicTest = function(index) {
 			{
 				name: "question",
 				message: 1 + index + ". " + card.front + "\n",
-				type: "input"
+				type: "input",
+				validate: function(input) {
+					if (!input) {
+						return false
+					} else {
+						return true
+					}
+				}
+
 			}
 		]).then(function(check){
 			// check accuracy and convert to lower case to compensate for case errors
@@ -126,7 +134,14 @@ var clozeTest = function(index) {
 			{
 				name: "question",
 				message: index + 1 + ". " + card.front + "\n",
-				type: "input"
+				type: "input",
+				validate: function(input) {
+					if (!input) {
+						return false
+					} else {
+						return true
+					}
+				}
 			}
 		]).then(function(check){
 			if (check.question.toLowerCase() === card.back.toLowerCase()) {
