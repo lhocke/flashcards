@@ -1,6 +1,14 @@
 [
   {
-    "front": "... has been compared to fiction character Tony Stark",
-    "back": "Elon Musk"
+    "front": "George Washington was the first president of ...",
+    "back": "the United States"
+  },
+  {
+    "front": "SpaceX founder Elon Musk has been developing and planinng for a ... Colony",
+    "back": "Mars"
+  },
+  {
+    "front": "...'s most famous feature is the Great Red Spot.",
+    "back": "Jupiter"
   }
 ]

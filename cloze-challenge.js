@@ -11,10 +11,9 @@ var startUp = function() {
 			name: "functionCheck",
 			type: "list",
 			message: "What would you like to do?",
-			choices: ["Test Myself", "Create Cards"]
+			choices: ["Test Myself", "Create Cards", "Exit"]
 		}
 	]).then(function(userChoice) {
-		console.log(userChoice)
 		if (userChoice.functionCheck === "Create Cards") {
 			inquirer.prompt([
 				{
@@ -24,20 +23,21 @@ var startUp = function() {
 					choices: ["Basic", "Cloze"]
 				}	
 			]).then(function(card){
-				console.log(card)
 				if (card.cardCheck === "Basic"){
 					basicCardCreate()
 				} else if (card.cardCheck === "Cloze") {
-					console.log("cloze")
 					clozeCardCreate()
 				}
 			})
-		} else {
+		} else if (userChoice.functionCheck === "Test Myself") {
 			gameStart()
+		} else {
+			process.exit()
 		}
 	})
 };
 
+// choose which test to run
 var gameStart = function() {
 	inquirer
 		.prompt([
@@ -49,23 +49,27 @@ var gameStart = function() {
 			}
 		]).then(function(response){
 			if(response.testType === "Basic") {
+				// clears the terminal
+				console.log("\033c");
+
 				console.log("Basic Test Begins!");
 				basicTest(0);
 			} else {
+				console.log("\033c");
 				console.log("Cloze Test Begins!");
 				clozeTest(0);
 			};
 		});
 };
 
+// traditional flashcards
 var basicTest = function(index) {
 	if (!index){
-		index = 0
+		index = 0;
 	}
 	fs.readFile("./basic.json", "utf-8", function(err, data){
 		var questions = JSON.parse(data);
-		console.log(questions)
-		var card = questions[index]
+		var card = questions[index];
 		inquirer.prompt([
 			{
 				name: "question",
@@ -73,19 +77,20 @@ var basicTest = function(index) {
 				type: "input"
 			}
 		]).then(function(check){
-			console.log(check)
-			if (check.question === card.back) {
+			// check accuracy and convert to lower case to compensate for case errors
+			if (check.question.toLowerCase() === card.back.toLowerCase()) {
 				console.log("Congratulations!");
 				score++;
 				console.log("Score: " + score);
 			} else {
-				console.log("Sorry, the answer was: " + card.back);
 				console.log("Score: " + score);
 			};
 			if (index < questions.length - 1) {
 				basicTest(index + 1)
 			} else {
 				console.log("Game Over! Thanks For Playing!")
+
+				// checks if user wants a second attempt
 				inquirer.prompt([
 					{
 						name: "doWhat",
@@ -97,6 +102,7 @@ var basicTest = function(index) {
 					if (next.doWhat === "Yes") {
 						basicTest(0)
 					} else {
+						console.log("\033c");
 						startUp()
 					}
 				})
@@ -105,6 +111,7 @@ var basicTest = function(index) {
 	});
 };
 
+// cloze card test
 var clozeTest = function(index) {
 	if (!index){
 		index = 0
@@ -112,7 +119,6 @@ var clozeTest = function(index) {
 	
 	fs.readFile("./cloze.json", "utf-8", function(err, data){
 		var questions = JSON.parse(data);
-		console.log(questions)
 		var card = questions[index]
 		inquirer.prompt([
 			{
@@ -121,8 +127,7 @@ var clozeTest = function(index) {
 				type: "input"
 			}
 		]).then(function(check){
-			console.log(check)
-			if (check.question === card.back) {
+			if (check.question.toLowerCase() === card.back.toLowerCase()) {
 				console.log("Congratulations!");
 				score++;
 				console.log("Score: " + score);
@@ -144,6 +149,7 @@ var clozeTest = function(index) {
 
 				]).then(function(next){
 					if (next.doWhat === "Yes") {
+						console.log("\033c");
 						clozeTest(0)
 					} else {
 						startUp()

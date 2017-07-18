@@ -1,14 +1,30 @@
 [
   {
-    "front": "who?",
-    "back": "Teddy!"
+    "front": "Who was the first president of the United States?",
+    "back": "George Washington"
   },
   {
-    "front": "Who are you?",
-    "back": "me"
+    "front": "Who was the king of England at the time of the Revolutionary war?",
+    "back": "King George"
   },
   {
-    "front": "who?",
-    "back": "goodbye"
+    "front": "Is this fun?",
+    "back": "yes"
+  },
+  {
+    "front": "How many questions do I need to write?",
+    "back": "All of them"
+  },
+  {
+    "front": "What is the name of the author who created the wildly popular Song of Ice and Fire series?",
+    "back": "George R.R. Martin"
+  },
+  {
+    "front": "True or False: an unladen swallow can travel at approximately 10 meters per second",
+    "back": "true"
+  },
+  {
+    "front": "Is this enough questions?",
+    "back": "yes"
   }
 ]
